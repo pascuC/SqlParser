@@ -1,1 +1,7 @@
-﻿  SqlParser.vcxproj -> D:\C++repos\SqlParser\Debug\SqlParser.exe
+﻿  DeleteStatement.cpp
+  InsertStatement.cpp
+  SelectStatement.cpp
+  SqlParser.cpp
+  UpdateStatement.cpp
+  Generating Code...
+  SqlParser.vcxproj -> D:\C++repos\SqlParser\Debug\SqlParser.exe
