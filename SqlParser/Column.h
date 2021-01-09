@@ -18,9 +18,9 @@ public:
 	Column(string name, string type, string def_val);
 	~Column();
 
-	const string& GetName() { return _name; }
-	const DataTypes& GetType() { return _type; }
-	const string& GetDefVal() { return _def_val; }
+	const string& GetName() const { return _name; }
+	const DataTypes& GetType() const { return _type; }
+	const string& GetDefVal() const { return _def_val; }
 
 	friend ostream& operator<<(ostream& out, const Column& col);
 

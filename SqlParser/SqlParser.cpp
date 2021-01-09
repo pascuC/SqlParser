@@ -6,6 +6,8 @@
 #include "DisplayTableCmd.h"
 #include "DropTableCmd.h"
 
+#include "InsertCmd.h"
+
 using namespace std;
 
 
@@ -18,9 +20,10 @@ int main(int argc, char** argv)
 
 	string s3 = "DROP TABLE salut";
 
-	//CreateTableCmd cmd(s);
-	SqlStatement* sql = new DisplayTableCmd(s2);
+	string insert = "INSERT INTO salut VALUES(44, 'salut ionut', 9.5)";
 
+	//CreateTableCmd cmd(s);
+	SqlStatement* sql = new InsertCmd(insert);
 	try {
 		sql->Execute();
 	}

@@ -18,7 +18,21 @@ public:
 	void ReadTable();
 	void DropTable();
 
+	// Printing table definition
 	friend ostream& operator<<(ostream& out, const Table& tb);
-	friend istream& operator>>(istream& in, Table& tb);
+
+	const vector<Column> GetColumns() const { return _columns; }
+
+	// Insert data into data file.
+	void operator+(const vector<string>& values);
+
+	// Delete data from data file.
+	void RemoveDataEntry(int columnPos, const string& value);
+
+	// Update data into data file.
+	void UpdateDataEntry(int columnPos, const string& columnValue, const vector<string>& values);
+
+	// Read data from data file.
+	vector<string> ReadData();
 };
 

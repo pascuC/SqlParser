@@ -61,20 +61,46 @@ ostream& operator<<(ostream& out, const Table& tb)
 	return out;
 }
 
-istream& operator>>(istream& in, Table& tb)
-{
-	cout << "Table name: ";
-	in >> ws;
-	getline(in, tb._table_name);
-	cout << endl;
-	
-  return in;
-}
-
 void Table::DropTable()
 {
 	if (remove((_table_name + ".def").c_str()))
 		throw "Error dropping table" + _table_name;
 	if(remove((_table_name + ".data").c_str()))
 		throw "Error dropping table" + _table_name;
+}
+
+void Table::operator+(const vector<string>& values)
+{
+	ofstream data(_table_name + ".data", ios::app);
+	for (auto value : values) {
+		data << value << " ";
+	}
+	data << endl;
+	data.close();
+}
+
+void Table::RemoveDataEntry(int columnPos, const string& value)
+{
+}
+
+void Table::UpdateDataEntry(int columnPos, const string& columnValue, const vector<string>& values)
+{
+}
+
+vector<string> Table::ReadData()
+{
+	vector<string> result;
+	string line;
+    ifstream myfile;
+    myfile.open(_table_name + ".data");
+
+   if(!myfile.is_open())
+   {
+	   throw "Error opening the file!";		  
+   }
+    while(getline(myfile, line))
+	{
+		result.push_back(line);
+    }
+	return result;
 }
