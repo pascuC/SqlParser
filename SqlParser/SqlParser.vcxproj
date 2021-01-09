@@ -142,6 +142,7 @@
     <ClCompile Include="Column.cpp" />
     <ClCompile Include="CreateTableCmd.cpp" />
     <ClCompile Include="DisplayTableCmd.cpp" />
+    <ClCompile Include="DropTableCmd.cpp" />
     <ClCompile Include="SqlParser.cpp" />
     <ClCompile Include="SQLStatement.cpp" />
     <ClCompile Include="Table.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Column.h" />
     <ClInclude Include="CreateTableCmd.h" />
     <ClInclude Include="DisplayTableCmd.h" />
+    <ClInclude Include="DropTableCmd.h" />
     <ClInclude Include="SQLStatement.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="Utils.h" />

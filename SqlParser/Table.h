@@ -15,7 +15,6 @@ public:
 	Table(const string& table_name);
 
 	void CreateTable();
-
 	void ReadTable();
 };
 
