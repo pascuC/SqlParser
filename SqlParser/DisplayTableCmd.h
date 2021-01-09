@@ -9,7 +9,7 @@ private:
 	string get_table_name(const string& s);
 
 public:
-	DisplayTableCmd(string cmd);
+	DisplayTableCmd(string cmd); 
 
 	// Inherited via SqlStatement
 	virtual void Execute() override;

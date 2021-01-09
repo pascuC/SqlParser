@@ -13,7 +13,7 @@ Table::Table(const string& table_name)
 
 void Table::CreateTable()
 {
-	if (Utils::file_exists(_table_name))
+	if (Utils::file_exists(_table_name + ".def"))
 		return;
 	ofstream table;
 	table.open(_table_name + ".def");
@@ -36,6 +36,9 @@ void Table::CreateTable()
 		}
 		table << endl;
 	}
+	table.close();
+	table.open(_table_name + ".data");
+	table.close();
 }
 
 void Table::ReadTable()
@@ -45,4 +48,12 @@ void Table::ReadTable()
 	while (table >> name >> type >> def_val) {
 		_columns.push_back(Column(name, type, def_val));
 	}
+}
+
+void Table::DropTable()
+{
+	if (remove((_table_name + ".def").c_str()))
+		throw "Error dropping table" + _table_name;
+	if(remove((_table_name + ".data").c_str()))
+		throw "Error dropping table" + _table_name;
 }

@@ -16,5 +16,6 @@ public:
 
 	void CreateTable();
 	void ReadTable();
+	void DropTable();
 };
 

@@ -1,5 +1,6 @@
 #include "DropTableCmd.h"
 #include "Utils.h"
+#include "Table.h"
 
 string DropTableCmd::get_table_name(const string& s)
 {
@@ -22,9 +23,9 @@ void DropTableCmd::Execute()
 {
 	try {
 		string table_name = get_table_name(_cmd);
-		if (remove((table_name + ".def").c_str()) != 0)
-			throw "Error droping table";
-		}
+		Table table(table_name);
+		table.DropTable();
+	}
 	catch (string msg) {
 		throw msg;
 	}
