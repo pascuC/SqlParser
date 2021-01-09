@@ -22,7 +22,7 @@ void DropTableCmd::Execute()
 {
 	try {
 		string table_name = get_table_name(_cmd);
-		if (remove(table_name.c_str()) != 0)
+		if (remove((table_name + ".def").c_str()) != 0)
 			throw "Error droping table";
 		}
 	catch (string msg) {

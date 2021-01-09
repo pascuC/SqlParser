@@ -26,7 +26,7 @@ vector<string> Utils::tokenize_string(const string& s, const string& delim, size
 
 bool Utils::file_exists(const std::string& name)
 {
-    if (FILE* file = fopen((name + ".def").c_str(), "r")) {
+    if (FILE* file = fopen(name.c_str(), "r")) {
         fclose(file);
         return true;
     }
