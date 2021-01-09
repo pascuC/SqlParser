@@ -139,17 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Column.cpp" />
     <ClCompile Include="DeleteStatement.cpp" />
     <ClCompile Include="InsertStatement.cpp" />
     <ClCompile Include="SelectStatement.cpp" />
     <ClCompile Include="SqlParser.cpp" />
+    <ClCompile Include="Table.cpp" />
     <ClCompile Include="UpdateStatement.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Column.h" />
     <ClInclude Include="DeleteStatement.h" />
     <ClInclude Include="InsertStatement.h" />
     <ClInclude Include="SelectStatement.h" />
     <ClInclude Include="SQLStatement.h" />
+    <ClInclude Include="Table.h" />
     <ClInclude Include="UpdateStatement.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
