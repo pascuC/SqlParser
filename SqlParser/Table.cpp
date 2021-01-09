@@ -1,107 +1,48 @@
-#include"Table.h"
-Table::Table()
+#include "Table.h"
+#include "Utils.h"
+
+Table::Table(const string& table_name, const vector<Column>& columns)
+	: _table_name(table_name), _columns(columns)
 {
-	this->name = "";
-	this->nbOfCols = 0;
-	this->column = nullptr;
 }
 
-Table::Table(string name, Column* column, int nbOfCols)
+Table::Table(const string& table_name)
+	: _table_name(table_name), _columns()
 {
-	this->name = name;
-	if (column != nullptr && nbOfCols > 0)
+}
+
+void Table::CreateTable()
+{
+	if (Utils::file_exists(_table_name))
+		return;
+	ofstream table;
+	table.open(_table_name + ".def");
+	for (auto col : _columns)
 	{
-		this->nbOfCols = nbOfCols;
-		this->column = new Column[nbOfCols];
-		for (int i = 0; i < nbOfCols; i++)
+		table << col.GetName() << " ";
+		switch (col.GetType())
 		{
-			this->column[i] = column[i];
+		case DataTypes::Text:
+			table << "Text " << col.GetDefVal();
+			break;
+		case DataTypes::Integer:
+			table << "Integer " << stoi(col.GetDefVal());
+			break;
+		case DataTypes::Float:
+			table << "Float " << stof(col.GetDefVal());
+			break;
+		default:
+			break;
 		}
-	}
-	else
-	{
-		this->column = nullptr;
-		this->nbOfCols = 0;
+		table << endl;
 	}
 }
 
-Table::Table(const Table& copy)
+void Table::ReadTable()
 {
-	this->name = copy.name;
-	if (copy.column != nullptr && copy.nbOfCols > 0)
-	{
-		this->nbOfCols = copy.nbOfCols;
-		this->column = new Column[copy.nbOfCols];
-		for (int i = 0; i < copy.nbOfCols; i++)
-		{
-			this->column[i] = copy.column[i];
-		}
-	}
-	else
-	{
-		this->column = nullptr;
-		this->nbOfCols = 0;
-	}
-}
-
-Table& Table::operator=(const Table& copy)
-{
-	if (this->column != nullptr)
-	{
-		delete[] this->column;
-	}
-
-	this->name = copy.name;
-	if (copy.column != nullptr && copy.nbOfCols > 0)
-	{
-		this->nbOfCols = copy.nbOfCols;
-		this->column = new Column[copy.nbOfCols];
-		for (int i = 0; i < copy.nbOfCols; i++)
-		{
-			this->column[i] = copy.column[i];
-		}
-	}
-	else
-	{
-		this->column = nullptr;
-		this->nbOfCols = 0;
-	}
-}
-
-//ostream& operator<<(ostream& out, const Table& tb)
-//{
-//	out << "Table name: " << tb.name << endl;
-//	out << "Number of cols: " << tb.nbOfCols << endl;
-//	for (int i = 0; i < tb.nbOfCols; i++)
-//	{
-//		out << "Col[" << i << "]: " << tb.column[i] << endl;
-//	}
-//	return out;
-//}
-
-//istream& operator>>(istream& in, Table& tb)
-//{
-//	cout << "Table name: ";
-//	in >> ws;
-//	getline(in, tb.name);
-//	cout << "Number of cols: ";
-//	in >> tb.nbOfCols;
-//	cout << endl;
-//	if (in.good() && tb.nbOfCols > 0)
-//	{
-//		tb.column = new Column[tb.nbOfCols];
-//		for (int i = 0; i < tb.nbOfCols; i++)
-//		{
-//			in >> tb.column[i];
-//		}
-//	}
-//  return in;
-//}
-
-Table::~Table()
-{
-	if (this->column != nullptr)
-	{
-		delete[] this->column;
+	ifstream table(_table_name + ".def");
+	string name, type, def_val;
+	while (table >> name >> type >> def_val) {
+		_columns.push_back(Column(name, type, def_val));
 	}
 }

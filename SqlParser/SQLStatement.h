@@ -1,14 +1,15 @@
 #pragma once
 #include <string>
-#include <iostream>
 
 using namespace std;
 
 class SqlStatement
 {
+protected:
+	string _cmd;
+
 public:
-	
+	SqlStatement(string cmd);
 
-private:
-
+	virtual void Execute() = 0;
 };
