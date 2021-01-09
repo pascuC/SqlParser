@@ -46,3 +46,24 @@ void Table::ReadTable()
 		_columns.push_back(Column(name, type, def_val));
 	}
 }
+
+ostream& operator<<(ostream& out, const Table& tb)
+{
+	out << "Table name: " << tb._table_name << endl;
+	out << "Columns: " << endl;
+	for (auto &col : tb._columns)
+	{
+		out << col << endl;
+	}
+	return out;
+}
+
+istream& operator>>(istream& in, Table& tb)
+{
+	cout << "Table name: ";
+	in >> ws;
+	getline(in, tb._table_name);
+	cout << endl;
+	
+  return in;
+}

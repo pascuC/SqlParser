@@ -16,5 +16,8 @@ public:
 
 	void CreateTable();
 	void ReadTable();
+
+	friend ostream& operator<<(ostream& out, const Table& tb);
+	friend istream& operator>>(istream& in, Table& tb);
 };
 

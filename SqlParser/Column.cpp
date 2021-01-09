@@ -23,3 +23,26 @@ Column::~Column()
 {
 	
 }
+
+ostream& operator<<(ostream& out, const Column& col)
+{
+	string type;
+	out << "Column name: " << col._name << endl;
+	switch (col._type)
+	{
+	case DataTypes::Text :
+		type = "Text";
+		break;
+	case DataTypes::Float:
+		type = "Float";
+		break;
+	case DataTypes::Integer:
+		type = "Integer";
+		break;
+	default:
+		type = "";
+	}
+	out << "Data type: " << type << endl;
+	out << "Default value: " << col._def_val << endl;
+	return out;
+}

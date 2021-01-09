@@ -25,7 +25,7 @@ void DisplayTableCmd::Execute()
 		string table_name = get_table_name(_cmd);
 		Table table(table_name);
 		table.ReadTable();
-
+		cout << table;
 	}
 	catch (string msg) {
 		throw msg;
