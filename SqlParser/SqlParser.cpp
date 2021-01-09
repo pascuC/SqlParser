@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 	string s3 = "DROP TABLE salut";
 
 	//CreateTableCmd cmd(s);
-	SqlStatement* sql = new DropTableCmd(s3);
+	SqlStatement* sql = new DisplayTableCmd(s2);
 
 	try {
 		sql->Execute();

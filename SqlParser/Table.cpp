@@ -50,6 +50,27 @@ void Table::ReadTable()
 	}
 }
 
+ostream& operator<<(ostream& out, const Table& tb)
+{
+	out << "Table name: " << tb._table_name << endl;
+	out << "Columns: " << endl;
+	for (auto &col : tb._columns)
+	{
+		out << col << endl;
+	}
+	return out;
+}
+
+istream& operator>>(istream& in, Table& tb)
+{
+	cout << "Table name: ";
+	in >> ws;
+	getline(in, tb._table_name);
+	cout << endl;
+	
+  return in;
+}
+
 void Table::DropTable()
 {
 	if (remove((_table_name + ".def").c_str()))

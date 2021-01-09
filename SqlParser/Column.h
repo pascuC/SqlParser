@@ -22,6 +22,7 @@ public:
 	const DataTypes& GetType() { return _type; }
 	const string& GetDefVal() { return _def_val; }
 
+	friend ostream& operator<<(ostream& out, const Column& col);
 
 private:
 	string _name;
