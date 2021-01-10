@@ -33,6 +33,6 @@ public:
 	void UpdateDataEntry(int columnPos, const string& columnValue, const vector<string>& values);
 
 	// Read data from data file.
-	vector<string> ReadData();
+	vector<vector<string>> ReadData();
 };
 

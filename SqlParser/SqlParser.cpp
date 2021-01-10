@@ -5,6 +5,7 @@
 #include "CreateTableCmd.h"
 #include "DisplayTableCmd.h"
 #include "DropTableCmd.h"
+#include "SelectCmd.h"
 
 #include "InsertCmd.h"
 #include "Table.h"
@@ -21,12 +22,18 @@ int main(int argc, char** argv)
 
 	string s3 = "DROP TABLE salut";
 
-	string insert = "INSERT INTO salut VALUES(44, 'salut ionut', 8.5)";
+	string insert = "INSERT INTO salut VALUES(100, 'salut costi', 9.5)";
+	string insert1 = "INSERT INTO salut VALUES(201, 'salut costi', 4.52)";
+	string insert2 = "INSERT INTO salut VALUES(302, 'salut costi', 5.57)";
+	string insert3 = "INSERT INTO salut VALUES(403, 'salut costi', 9.5)";
+	string insert4 = "INSERT INTO salut VALUES(504, 'salut costi', 9.5)";
 
-	
-	
+	string del = "DELETE FROM salut WHERE col3 = 9.5";
+
+	string sel = "SELECT (col3, col1, col2) FROM salut WHERE col1=303";
+
 	//CreateTableCmd cmd(s);
-	SqlStatement* sql = new InsertCmd(insert);
+	SqlStatement* sql = new SelectCmd(sel);
 	try {
 		sql->Execute();
 	}
