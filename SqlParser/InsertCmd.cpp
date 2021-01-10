@@ -64,6 +64,8 @@ void InsertCmd::Execute()
 		vector<string> values = get_values();
 		if (values_are_ok(values, table.GetColumns()))
 			table + values;
+
+		table.RemoveDataEntry(2, "9.5");
 	}
 	catch (string msg) {
 		throw msg;

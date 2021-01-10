@@ -81,10 +81,73 @@ void Table::operator+(const vector<string>& values)
 
 void Table::RemoveDataEntry(int columnPos, const string& value)
 {
+	fstream file(_table_name + ".data", ios::in);
+
+	if (file.is_open())
+	{
+		//string replace_with = "";
+		string line;
+		vector<string> lines;
+
+		while (getline(file, line)) {
+			cout << line << endl;
+
+			string::size_type pos = 0;
+
+			/*while ((pos = line.find(value, pos)) != string::npos) {
+				line.replace(pos, line.size(), replace_with);
+				pos += replace_with.size();
+			}*/
+			vector<string> values = Utils::tokenize_string(line, " ", 0);
+			if (values[columnPos] != value)
+			{
+				lines.push_back(line);
+			}
+		}
+
+		file.close();
+		file.open(_table_name + ".data", ios::out | ios::trunc);
+
+		for (const auto& i : lines) {
+			file << i << endl;
+		}
+
+		file.close();
+	}
 }
 
 void Table::UpdateDataEntry(int columnPos, const string& columnValue, const vector<string>& values)
 {
+	fstream file(_table_name + ".data", ios::in);
+
+	if (file.is_open()) {
+		string replace = "bar";
+		string replace_with = "foo";
+		string line;
+		vector<string> lines;
+
+		while (getline(file, line)) {
+			cout << line << endl;
+
+			string::size_type pos = 0;
+
+			while ((pos = line.find(replace, pos)) != string::npos) {
+				line.replace(pos, line.size(), replace_with);
+				pos += replace_with.size();
+			}
+
+			lines.push_back(line);
+		}
+
+		file.close();
+		file.open(_table_name + ".data", ios::out | ios::trunc);
+
+		for (const auto& i : lines) {
+			file << i << endl;
+		}
+
+		file.close();
+	}
 }
 
 vector<string> Table::ReadData()
@@ -94,13 +157,15 @@ vector<string> Table::ReadData()
     ifstream myfile;
     myfile.open(_table_name + ".data");
 
-   if(!myfile.is_open())
-   {
+    if(!myfile.is_open())
+    {
 	   throw "Error opening the file!";		  
-   }
+    }
+
     while(getline(myfile, line))
 	{
 		result.push_back(line);
     }
+	myfile.close();
 	return result;
 }
