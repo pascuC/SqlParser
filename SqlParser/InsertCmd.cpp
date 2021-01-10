@@ -18,7 +18,7 @@ string InsertCmd::get_table_name(const string& s)
 vector<string> InsertCmd::get_values()
 {
 	string values = Utils::get_str_between_two_str(_cmd, "(", ")");
-	vector<string> result = Utils::tokenize_string(values, ", ", 1);
+	vector<string> result = Utils::tokenize_string(values, ", ", 0);
 	return result;
 }
 

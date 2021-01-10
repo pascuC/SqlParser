@@ -71,11 +71,29 @@ void Table::DropTable()
 
 void Table::operator+(const vector<string>& values)
 {
-	ofstream data(_table_name + ".data", ios::app);
-	for (auto value : values) {
-		data << value << " ";
+	ofstream data(_table_name + ".data", ios::app | ios::binary);
+	int len = 0, valuei = 0;
+	float valuef = 0;
+	for (int i = 0; i < _columns.size(); i++) {
+		switch (_columns[i].GetType())
+		{
+		case DataTypes::Text:
+			len = values[i].length();
+			data.write((char*)&len, sizeof(int));
+			data.write(values[i].c_str(), len);
+			break;
+		case DataTypes::Integer:
+			valuei = stoi(values[i]);
+			data.write((char*)&valuei, sizeof(int));
+			break;
+		case DataTypes::Float:
+			valuef = stof(values[i]);
+			data.write((char*)&valuef, sizeof(float));
+			break;
+		default:
+			break;
+		}
 	}
-	data << endl;
 	data.close();
 }
 
@@ -87,20 +105,52 @@ void Table::UpdateDataEntry(int columnPos, const string& columnValue, const vect
 {
 }
 
-vector<string> Table::ReadData()
+vector<vector<string>> Table::ReadData()
 {
-	vector<string> result;
 	string line;
-    ifstream myfile;
-    myfile.open(_table_name + ".data");
+    ifstream myfile(_table_name + ".data", ios::binary);
 
    if(!myfile.is_open())
    {
 	   throw "Error opening the file!";		  
    }
-    while(getline(myfile, line))
-	{
-		result.push_back(line);
-    }
-	return result;
+
+   vector<vector<string>> lines;
+   int len = 0, valuei = 0;
+   float valuef = 0;
+   char* value = nullptr;
+
+   while (!myfile.eof())
+   {
+	   vector<string> line;
+	   for (int i = 0; i < _columns.size(); i++) {
+		   switch (_columns[i].GetType())
+		   {
+		   case DataTypes::Text:
+			   myfile.read((char*)&len, sizeof(int));
+			   value = new char[len + 1];
+			   myfile.read(value, len);
+			   value[len] = '\0';
+			   line.push_back(value);
+			   break;
+		   case DataTypes::Integer:
+			   myfile.read((char*)&valuei, sizeof(int));
+			   line.push_back(to_string(valuei));
+			   break;
+		   case DataTypes::Float:
+			   myfile.read((char*)&valuef, sizeof(float));
+			   line.push_back(to_string(valuef));
+			   break;
+		   default:
+			   break;
+		   }
+	   }
+	   lines.push_back(line);
+   }
+
+   delete value;
+
+   lines.pop_back();
+
+   return lines;
 }
