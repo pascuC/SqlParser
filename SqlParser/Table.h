@@ -10,6 +10,8 @@ private:
 	string _table_name;
 	vector<Column> _columns;
 
+	void empty_file();
+
 public:
 	Table(const string& table_name, const vector<Column>& columns);
 	Table(const string& table_name);
@@ -30,7 +32,7 @@ public:
 	void RemoveDataEntry(int columnPos, const string& value);
 
 	// Update data into data file.
-	void UpdateDataEntry(int columnPos, const string& columnValue, const vector<string>& values);
+	void UpdateDataEntry(int columnPos, const string& columnValue, int updatedPos, const string& updatedValue);
 
 	// Read data from data file.
 	vector<vector<string>> ReadData();

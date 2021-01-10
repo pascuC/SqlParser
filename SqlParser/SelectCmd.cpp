@@ -8,7 +8,7 @@
 string SelectCmd::get_table_name(const string& s)
 {
 	string table_name = s.substr(s.find("FROM") + 5, s.find(" ", s.find("FROM") + 5) - s.find(" ", s.find("FROM")));
-	if (table_name.find(" ") > 0)
+	if (table_name.find(" ") != string::npos)
 		table_name.pop_back();
 
 	if (!Utils::file_exists(table_name + ".def"))
@@ -109,34 +109,37 @@ void SelectCmd::Execute()
 
 		bool is_row_printed;
 		for (auto line : data) {
-			is_row_printed = false;
+			is_row_printed = true;
 			for (auto index : indexes) {
 				if (is_condition)
 				{
 					switch (type_condition)
 					{
 					case DataTypes::Text:
-						if (line[index_condition].find(condition[1]) > 0)
-							is_row_printed = true;
+						if (line[index_condition].find(condition[1]) == string::npos)
+							is_row_printed = false;
 						break;
 					case DataTypes::Integer:
-						if (stoi(line[index_condition]) ==  stoi(condition[1]))
-							is_row_printed = true;
+						if (stoi(line[index_condition]) !=  stoi(condition[1]))
+							is_row_printed = false;
 						break;
 					case DataTypes::Float:
-						if (stof(line[index_condition]) == stof(condition[1]))
-							is_row_printed = true;
+						if (stof(line[index_condition]) != stof(condition[1]))
+							is_row_printed = false;
 						break;
 					default:
 						break;
 					}
-					if(is_row_printed)
-						cout << setw(20) << line[index] << " ";
 				}
+				if (is_row_printed)
+					cout << setw(20) << line[index] << " ";
 			}
 			if (is_row_printed)
 				cout << endl;
 		}
+
+		cout << endl;
+		cout << endl;
 	}
 	catch (string msg) {
 		throw msg;

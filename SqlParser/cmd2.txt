@@ -1,0 +1,16 @@
+CREATE TABLE my_table ((id, integer, 0),(name, text, 'NA'),(average, float, 0))
+DISPLAY TABLE my_table
+INSERT INTO my_table VALUES (0, 'cristi', 9.9)
+INSERT INTO my_table VALUES (1, 'costi', 4.9)
+INSERT INTO my_table VALUES (2, 'adina', 19.9)
+INSERT INTO my_table VALUES (3, 'cristi', 2.9)
+SELECT ALL FROM my_table
+INSERT INTO my_table VALUES (4, 'mihai', 109.9)
+INSERT INTO my_table VALUES (5, 'augustin', 209.9)
+SELECT ALL FROM my_table
+SELECT (name, id) FROM my_table WHERE name='cristi'
+UPDATE my_table SET average=10.1 WHERE name='augustin'
+SELECT ALL FROM my_table
+DELETE FROM my_table WHERE name='cristi'
+SELECT ALL FROM my_table
+DROP TABLE my_table

@@ -139,8 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CmdParser.cpp" />
     <ClCompile Include="Column.cpp" />
+    <ClCompile Include="CommandReader.cpp" />
     <ClCompile Include="CreateTableCmd.cpp" />
+    <ClCompile Include="DeleteCmd.cpp" />
     <ClCompile Include="DisplayTableCmd.cpp" />
     <ClCompile Include="DropTableCmd.cpp" />
     <ClCompile Include="InsertCmd.cpp" />
@@ -148,21 +151,27 @@
     <ClCompile Include="SqlParser.cpp" />
     <ClCompile Include="SQLStatement.cpp" />
     <ClCompile Include="Table.cpp" />
+    <ClCompile Include="UpdateCmd.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CmdParser.h" />
     <ClInclude Include="Column.h" />
+    <ClInclude Include="CommandReader.h" />
     <ClInclude Include="CreateTableCmd.h" />
+    <ClInclude Include="DeleteCmd.h" />
     <ClInclude Include="DisplayTableCmd.h" />
     <ClInclude Include="DropTableCmd.h" />
     <ClInclude Include="InsertCmd.h" />
     <ClInclude Include="SelectCmd.h" />
     <ClInclude Include="SQLStatement.h" />
     <ClInclude Include="Table.h" />
+    <ClInclude Include="UpdateCmd.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="salut.data" />
+    <Text Include="cmd1.txt" />
+    <Text Include="cmd2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

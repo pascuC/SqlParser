@@ -1,6 +1,12 @@
 #include "Table.h"
 #include "Utils.h"
 
+void Table::empty_file()
+{
+	ofstream myfile(_table_name + ".data", ios::trunc);
+	myfile.close();
+}
+
 Table::Table(const string& table_name, const vector<Column>& columns)
 	: _table_name(table_name), _columns(columns)
 {
@@ -99,46 +105,45 @@ void Table::operator+(const vector<string>& values)
 
 void Table::RemoveDataEntry(int columnPos, const string& value)
 {
-	fstream file(_table_name + ".data", ios::in);
-
-	if (file.is_open())
-	{
-		//string replace_with = "";
-		string line;
-		vector<string> lines;
-
-		while (getline(file, line)) {
-			cout << line << endl;
-
-			string::size_type pos = 0;
-
-			/*while ((pos = line.find(value, pos)) != string::npos) {
-				line.replace(pos, line.size(), replace_with);
-				pos += replace_with.size();
-			}*/
-			vector<string> values = Utils::tokenize_string(line, " ", 0);
-			if (values[columnPos] != value)
-			{
-				lines.push_back(line);
-			}
+	auto data = ReadData();
+	empty_file();
+	bool is_row_printed;
+	for (auto line : data) {
+		is_row_printed = true;
+		switch (_columns[columnPos].GetType())
+		{
+		case DataTypes::Text:
+			if (line[columnPos] == value)
+				is_row_printed = false;
+			break;
+		case DataTypes::Integer:
+			if (stoi(line[columnPos]) == stoi(value))
+				is_row_printed = false;
+			break;
+		case DataTypes::Float:
+			if (stof(line[columnPos]) == stof(value))
+				is_row_printed = false;
+			break;
+		default:
+			break;
 		}
-
-		file.close();
-		file.open(_table_name + ".data", ios::out | ios::trunc);
-
-		for (const auto& i : lines) {
-			file << i << endl;
-		}
-
-		file.close();
+		if (is_row_printed)
+			this->operator+(line);
 	}
 }
 
-void Table::UpdateDataEntry(int columnPos, const string& columnValue, const vector<string>& values)
+void Table::UpdateDataEntry(int columnPos, const string& columnValue, int updatedPos, const string& updatedValue)
 {
+	auto data = ReadData();
+	empty_file();
+	for (auto line : data) {
+		if (line[columnPos] == columnValue)
+			line[updatedPos] = updatedValue;
+		this->operator+(line);
+	}
 }
 
-vector<string> Table::ReadData()
+vector<vector<string>> Table::ReadData()
 {
 	string line;
 	ifstream myfile(_table_name + ".data", ios::binary);

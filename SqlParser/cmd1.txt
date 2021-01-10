@@ -1,0 +1,15 @@
+CREATE TABLE test IF NOT EXISTS ((id, integer, 0),(name, text, 'NA'),(average, float, 0))
+DISPLAY TABLE test
+INSERT INTO test VALUES (0, 'cristi', 9.9)
+INSERT INTO test VALUES (1, 'costi', 4.9)
+INSERT INTO test VALUES (2, 'adina', 19.9)
+INSERT INTO test VALUES (3, 'cristi', 2.9)
+SELECT ALL FROM test
+INSERT INTO test VALUES (4, 'mihai', 109.9)
+INSERT INTO test VALUES (5, 'augustin', 209.9)
+SELECT ALL FROM test
+SELECT (name, id) FROM test WHERE name='cristi'
+UPDATE test SET average=10.1 WHERE name='augustin'
+SELECT ALL FROM test
+DELETE FROM test WHERE name='cristi'
+SELECT ALL FROM test
